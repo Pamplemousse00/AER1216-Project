@@ -133,9 +133,10 @@ def climb_rate(uav: Aircraft, altitude_m: float, V: float) -> float:
     P_req = power_required_W(uav, rho, V)
     W = weight_Newtons(uav)
     ROC = (P_avail - P_req) / W
+    max_ROC = uav.prop_efficiency*P_avail/W + (0.5*rho*V_max_100*uav.CD0/(W/uav.wing_area_m2))-(2*uav.k*(W/uav.wing_area_m2)/(rho*V_max_100))
     if ROC < 0:
       print("Warning: Negative climb rate (descent required).")
-    return ROC
+    return ROC, max_ROC
 
 
 def frange(start: float, stop: float, step: float):
@@ -251,7 +252,7 @@ if __name__ == "__main__":
 
     # (i) Maximum climb rate near sea level at best endurance speed
     V_best_endurance = best_endurance_speed(uav, 0.0)
-    roc_max = climb_rate(uav, 0.0, V_best_endurance)
+    roc_max, New_ROC = climb_rate(uav, 0.0, V_best_endurance)
 
     # (j) Minimum turn radius and associated velocity (e.g., 45° bank at 100 m)
     R_min_turn, V_turn, n_load = turn_radius_and_speed(uav, 100.0, bank_angle_deg=45.0)
@@ -263,5 +264,5 @@ if __name__ == "__main__":
     print(f"V_min@100m: {V_min_100:.1f} m/s, V_max@100m: {V_max_100:.1f} m/s")
     print(f"Stall (sea level): {V_stall_sea:.1f} m/s")
     print(f"Service ceiling: {h_service} m, Absolute ceiling: {h_absolute} m")
-    print(f"Max climb rate: {roc_max:.2f} m/s at V = {V_best_endurance:.1f} m/s")
+    print(f"Max climb rate: {roc_max:.2f} m/s or {New_ROC} new value at V = {V_best_endurance:.1f} m/s")
     print(f"Min turn radius: {R_min_turn:.1f} m at V = {V_turn:.1f} m/s, n = {n_load:.2f}")
