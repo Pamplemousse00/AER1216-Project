@@ -179,7 +179,7 @@ P.wind_gain_d = 2;
 % Initial Conditions
 pn       = 0;  % initial North position
 pe       = 0;  % initial East position
-pd       = -2000;  % initial Down position (negative altitude)
+pd       = -1.5;  % initial Down position (negative altitude)
 P.pn0    = pn;  % initial North position
 P.pe0    = pe;  % initial East position
 P.pd0    = pd;  % initial Down position (negative altitude)
@@ -201,4 +201,44 @@ P.delta_t0 =1;
 
 
 
+global K_px K_dx K_py K_dy K_pz K_dz K_p_phi K_d_phi K_p_theta K_d_theta K_p_psi K_d_psi;
+
+K_p_yaw = 1;
+K_i_yaw = 1;
+K_d_yaw = 1;
+
+K_p_roll = 1;
+K_i_roll = 1;
+K_d_roll = 1;
+
+K_p_climb_rate = 1;
+K_i_climb_rate = 1;
+K_d_climb_rate = 1;
+
+K_p_altitude = 1;
+K_i_altitude = 1;
+K_d_altitude = 1;
+
+K_p_pitch = 1;
+K_i_pitch = 1;
+K_d_pitch = 1;
+
+K_p_velocity = 1;
+K_i_velocity = 1;
+K_d_velocity = 1;
+
+K_p_sideslip = 1;
+K_i_sideslip = 1;
+K_d_sideslip = 1;
+
+climb_theta_gain = 1;
+climb_V_gain = 0;
+
+
+V_c_ts = timeseries;
+h_c_ts = timeseries;
+hdot_c_ts = timeseries;
+psi_c_ts = timeseries;
+
+mission_commands;
 

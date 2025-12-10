@@ -1,0 +1,73 @@
+% mission_commands.m
+
+% --- Design choices ---
+V_to     = 20;     % m/s, takeoff / climb speed
+V_cruise = 22;     % m/s, cruise speed
+h0       = 1;      % initial altitude (m)
+h_target = 100;    % target altitude (m)
+hdot_climb = 3;    % m/s, commanded climb rate
+psi0     = 0;      % initial heading (rad)
+R_turn   = 50;     % m, desired turn radius
+
+g = 9.81;
+
+% --- Segment times (approx) ---
+t_climb  = (h_target - h0) / hdot_climb;      % time to reach ~100 m
+t_cruise = 500 / V_cruise;                    % 500 m at cruise speed
+r_des    = V_cruise / R_turn;                 % desired yaw rate for R = 50
+dpsi     = pi/2;                              % 90 deg turn
+t_turn   = dpsi / r_des;                      % time to turn 90 deg
+
+t1 = t_climb;
+t2 = t1 + t_cruise;
+t3 = t2 + t_turn;
+t_end = t3 + 10;   % extra time to settle after turn
+
+% --- Build a time vector ---
+dt_cmd = 0.05;     % command update step (s)
+t = (0:dt_cmd:t_end)';
+
+% Preallocate
+V_c_vec    = zeros(size(t));
+h_c_vec    = zeros(size(t));
+hdot_c_vec = zeros(size(t));
+psi_c_vec  = zeros(size(t));
+
+for i = 1:length(t)
+    ti = t(i);
+
+    if ti <= t1
+        % Segment 1: takeoff + climb
+        V_c_vec(i)    = V_to;
+        h_c_vec(i)    = h_target;     % "go to 100 m"
+        hdot_c_vec(i) = hdot_climb;
+        psi_c_vec(i)  = psi0;
+
+    elseif ti <= t2
+        % Segment 2: level cruise
+        V_c_vec(i)    = V_cruise;
+        h_c_vec(i)    = h_target;
+        hdot_c_vec(i) = 0;
+        psi_c_vec(i)  = psi0;
+
+    elseif ti <= t3
+        % Segment 3: coordinated turn
+        V_c_vec(i)    = V_cruise;
+        h_c_vec(i)    = h_target;
+        hdot_c_vec(i) = 0;
+        psi_c_vec(i)  = psi0 + r_des * (ti - t2);   % ramp heading
+
+    else
+        % Segment 4: post-turn steady flight
+        V_c_vec(i)    = V_cruise;
+        h_c_vec(i)    = h_target;
+        hdot_c_vec(i) = 0;
+        psi_c_vec(i)  = psi0 + dpsi;     % new heading held
+    end
+end
+
+% Export as timeseries for Simulink
+V_c_ts    = timeseries(V_c_vec,    t);
+h_c_ts    = timeseries(h_c_vec,    t);
+hdot_c_ts = timeseries(hdot_c_vec, t);
+psi_c_ts  = timeseries(psi_c_vec,  t);
