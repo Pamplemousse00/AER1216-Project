@@ -45,16 +45,16 @@ r = uu(12); % yaw angular velocity
 t = uu(13); % time
 
 % Air Vehicle Parameters
-fuse_l1 = 0.2;      % COG to nose tip
-fuse_l2 = 0.15;     % COG to nose base
-fuse_l3 = 0.6;      % COG to tail [m]
-fuse_h  = 0.15;     % fuselage height
-fuse_w  = 0.15;     % fuselage max width [m]
-wing_l  = 0.18994;  % chord length [m]
-wing_w  = 2.8956;   % wingspan [m]
-tail_l  = 0.12;     % tailwing chord length [m]
-tail_h  = 0.5;      % vertical stab. height [m]
-tail_w  = 1;        % tailwing wingspan
+fuse_l1 = 0.4;      % COG to nose tip
+fuse_l2 = 0.421;     % COG to nose base
+fuse_l3 = 1.4;      % COG to tail [m]
+fuse_h  = 0.30;     % fuselage height
+fuse_w  = 0.20;     % fuselage max width [m]
+wing_l  = 0.291;  % chord length [m]
+wing_w  = 2.42;   % wingspan [m]
+tail_l  = 0.18;     % tailwing chord length [m]
+tail_h  = 0.494;      % vertical stab. height [m]
+tail_w  = 0.8;        % tailwing wingspan
 geo = [fuse_l1,fuse_l2,fuse_l3,fuse_h,fuse_w,...
     wing_l,wing_w,tail_l,tail_h,tail_w]; % matrix of geometric parameters
 
