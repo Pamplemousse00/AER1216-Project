@@ -346,8 +346,8 @@ tz_a = 0.5*P.rho*Va^2*P.S*P.b*C_n;
 
 % propulsion forces and moments
 
-% Convert throttle to shaft speed (simple linear map)
-n = delta_t * P.rev_max;   % [rev/s]
+% Convert throttle to shaft speed
+n = delta_t * P.rev_max;  
 
 % Avoid divide-by-zero if throttle is zero
 if n < 1e-3

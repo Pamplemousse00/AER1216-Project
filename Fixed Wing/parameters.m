@@ -143,22 +143,14 @@ P.theta_max = deg2rad(2);      % pitch error max
 % P.theta_max = deg2rad(10);      % pitch error max
 
 % % Thrust parameters
-% prop_data = importdata('ancf_16x8_1001od_3967.txt');
-%         P.J_ref = prop_data.data(:,1);
-%         P.CT_ref = prop_data.data(:,2);
-%         P.CP_ref = prop_data.data(:,3);
-%         P.eta_ref = prop_data.data(:,4);
-%         P.rev_max = 5000/60;
-%         P.S_prop = 0.2027;                      % [m^2]
-%         P.D_prop = sqrt(4*P.S_prop/pi);         % [m]
 prop_data = importdata('propData_8k.txt');
         P.J_ref = prop_data.data(:,1);
         P.CT_ref = prop_data.data(:,2);
         P.CP_ref = prop_data.data(:,3);
         P.eta_ref = prop_data.data(:,4);
         P.rev_max = 10656/60;
-        P.S_prop = 0.2027;                      % [m^2]
-        P.D_prop = sqrt(4*P.S_prop/pi);         % [m]
+        P.S_prop = 0.2027;                     
+        P.D_prop = sqrt(4*P.S_prop/pi);  
  
 
 % wind parameters
