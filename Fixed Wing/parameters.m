@@ -22,7 +22,7 @@
 % Initial Conditions
 clear all
 % compute trim conditions            
-P.Va0 = 25;         % initial airspeed (also used as trim airspeed)
+P.Va0 = 2;         % initial airspeed (also used as trim airspeed)
 P.Va_trim = 25; 
 P.Va = P.Va_trim;
 gamma = 0*pi/180;   % desired flight path angle (radians)

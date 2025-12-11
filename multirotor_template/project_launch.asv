@@ -1,0 +1,47 @@
+clear all
+close all
+
+%% PATH PLANNING %% 
+wait_time = 1;  % wait time of signal
+
+range_buffer = 0.2;  % 0.45;  % a buffer zone around obstacles to be avoid
+bound_buffer = 0.2;  % a buffer zone around bounds to be avoided
+bound_orig = [-500, 500];
+
+[final_path, final_yaw] = plan_path();
+
+%% MODEL LAUNCH %%
+[x_in, y_in, z_in, yaw_in] = compute_sim_in(final_path, final_yaw, wait_time);
+
+global K_px K_dx K_py K_dy K_pz K_dz K_p_phi K_d_phi K_p_theta K_d_theta K_p_psi K_d_psi Jr I_mat L k b m g;
+
+K_px = 0.05;
+K_dx = 0.05;
+K_py = 0.1;
+K_dy = 0.055;
+K_pz = 10;
+K_dz = 4;
+
+K_p_phi = 0.1;
+K_d_phi = 0.05;
+K_p_theta = 0.1;
+K_d_theta = 0.05;
+K_p_psi = 0.20;
+K_d_psi = 0.01;
+
+Jr = 6.5 * 10^(-5);  % rotational moment of inertia
+Ixx = 0.001087473;  % moment of inertia at x-axis
+Iyy = 0.001087473;  % moment of inertia at y-axis
+Izz = 0.001092437;  % moment of inertia at z-axis
+I_mat = diag([Ixx Iyy Izz]);
+L = 2;  % arm length of quadrotor
+k = 0.09;  % thrust coefficient
+b = 0.06;  % drag coefficient
+m = 2;  % quadrotor mass
+g = 9.81;
+
+sim('Quadrotor_Model.slx');
+
+%% PLOT RESULT %%
+/plot_path_2d(final_path, x_out, y_out, bound_orig);
+% plot_path_3d(final_path, height, x_out, y_out, z_out, bound_orig);

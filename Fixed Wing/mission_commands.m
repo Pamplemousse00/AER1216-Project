@@ -5,7 +5,7 @@ V_to     = 20;     % m/s, takeoff / climb speed
 V_cruise = 22;     % m/s, cruise speed
 h0       = 1;      % initial altitude (m)
 h_target = 100;    % target altitude (m)
-hdot_climb = 3;    % m/s, commanded climb rate
+hdot_climb = 5;    % m/s, commanded climb rate
 psi0     = 0;      % initial heading (rad)
 R_turn   = 50;     % m, desired turn radius
 
