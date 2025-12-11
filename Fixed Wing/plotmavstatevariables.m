@@ -180,7 +180,7 @@ function plotmavstatevariables(uu)
 function handle = graph_y(t, y, lab, handle)
   
   if isempty(handle),
-    handle    = plot(t,y,'b','LineWidth',3);
+    handle    = plot(t,y,'m','LineWidth',3);
     ylabel(lab)
     set(get(gca, 'YLabel'),'Rotation',0.0);
   else

@@ -2,13 +2,13 @@
 
 % --- Design choices ---
 V_to     = 20;     % m/s, takeoff / climb speed
-V_cruise = 14.36;     % m/s, cruise speed
+V_cruise = 10.;     % m/s, cruise speed
 h0       = 1;      % initial altitude (m)
-h_target = 100;    % target altitude (m)
+h_target = 40;    % target altitude (m)
 hdot_climb = 5;    % m/s, commanded climb rate
 psi0     = 0;      % initial heading (rad)
 R_turn   = 30;     % m, desired turn radius
-D_cruise = 500;
+D_cruise = 50;
 
 g = 9.81;
 
